@@ -14,7 +14,7 @@ export default () => {
       const { data } = await api.get("/statistics");
       const results = await Promise.all(
         Object.keys(data.countryDistribution).map((ctryName) => {
-          return axios.get(`http://restcountries.eu/rest/v2/name/${ctryName}`);
+          return axios.get(`https://restcountries.eu/rest/v2/name/${ctryName}`);
         })
       );
 
