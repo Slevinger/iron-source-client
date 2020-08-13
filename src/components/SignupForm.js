@@ -42,7 +42,6 @@ export default ({ onSignUp }) => {
         } = await axios.get(
           `https://restcountries.eu/rest/v2/name/${countryNameInput}`
         );
-        console.log(result);
         setCountry(result.name);
       } catch (error) {
         event.stopPropagation();
@@ -75,7 +74,6 @@ export default ({ onSignUp }) => {
               <label>Enter Country</label>
               <input
                 onBlur={(event) => {
-                  console.log("blue");
                   setLocation(event);
                 }}
                 type="text"

@@ -7,8 +7,6 @@ export default () => {
     const { data } = await api.get(
       `/name/${name}/country/${country}/dob/${dateOfBirth.toDateString()}`
     );
-
-    console.log(data);
     setSurprise(data);
   }, []);
 
