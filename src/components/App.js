@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Statistics from "./Statistics";
-import api from "../api/surprisesApi";
+import useSurprise from "./hooks/useSurprise";
 import SignupForm from "./SignupForm";
 import Surprise from "./Surprise";
 import styled from "styled-components";
@@ -30,22 +30,13 @@ const Modal = styled.div`
 `;
 
 export default () => {
-  const [surprise, setSurprise] = useState(null);
-  const onSubmit = useCallback(async ({ name, dateOfBirth, country }) => {
-    const { data } = await api.get(
-      `/name/${name}/country/${country}/dob/${dateOfBirth.toDateString()}`
-    );
-
-    console.log(data);
-    setSurprise(data);
-  }, []);
-
+  const { surprise, surpriseMe, clearSurprise } = useSurprise();
   return (
     <Router>
       <Route path="/" exact>
         <Modal
           className="ui dimmer modals visible active"
-          onClick={() => setSurprise(null)}
+          onClick={clearSurprise}
         >
           <Link to="/statistics">
             <i class="chart bar icon stats-icon" />
@@ -55,7 +46,7 @@ export default () => {
             {surprise ? (
               <Surprise onClick={(e) => e.stopPropagation()} {...surprise} />
             ) : (
-              <SignupForm onSignUp={onSubmit} />
+              <SignupForm onSignUp={surpriseMe} />
             )}
           </div>
         </Modal>
